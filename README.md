@@ -34,13 +34,13 @@ Global Model Updating: The server aggregates the updated subnets to refine the g
 This paper presents the Federated Dropout (FedDrop) method to address both computation and communication challenges in Federated Learning (FL), especially on resource-constrained devices.
 The method is based on dropout, which randomly deactivates neurons in a neural network to reduce model size. FedDrop adapts dropout rates per device, creating submodels of different sizes that match device capabilities.
 In each round, the server generates several subnets with distinct dropout rates. Each subnet is assigned to a device, which trains and uploads the updated submodel.
-The server aggregates the results from all devices, updating the global model. This adaptive dropout approach helps reduce resource demands while maintaining model accuracy, addressing the overfitting issues typical in uniform dropout​
+The server aggregates the results from all devices, updating the global model. This adaptive dropout approach helps reduce resource demands while maintaining model accuracy, addressing the overfitting issues typical in uniform dropout​.
 ## 2. FedAvg_PSI
 This folder contains the notebook file for the implementation of the following paper **Communication-Efficient Learning of Deep Networks from Decentralized Data** (*https://arxiv.org/pdf/1602.05629*)
 
 This foundational work in federated learning introduces FedAvg, a method to train a global model across decentralized data by allowing devices to compute updates locally.
 FedAvg combines local stochastic gradient descent on client devices with periodic aggregation at a central server. The clients perform several rounds of local updates and send only the model updates (not raw data) to the server.
-By averaging these local updates, the server updates the global model. FedAvg is effective in handling non-IID data distributions across devices, reducing communication requirements significantly compared to synchronous gradient descent, which demands more frequent updates​
+By averaging these local updates, the server updates the global model. FedAvg is effective in handling non-IID data distributions across devices, reducing communication requirements significantly compared to synchronous gradient descent, which demands more frequent updates​..
 <!---Methodology Overview
 1. Federated Learning Framework
 The authors define Federated Learning as a decentralized approach where:
@@ -82,7 +82,7 @@ This folder contains the notebook file for the implementation of the following p
 
 HeteroFL is proposed as a framework that allows each client device to train a model that varies in complexity based on its own computational and communication capabilities, while still contributing to a unified global model.
 Unlike FedAvg, which requires all clients to use the same model architecture, HeteroFL supports model heterogeneity by creating multiple "shrunken" versions of the global model (with fewer parameters). Devices with lower capacity receive and train simpler models.
-The global model is aggregated by combining these heterogeneous models at each communication round. A "masking trick" and static batch normalization (sBN) are introduced to manage model variance and ensure stable updates, making HeteroFL adaptable to non-IID data with varying client resources​
+The global model is aggregated by combining these heterogeneous models at each communication round. A "masking trick" and static batch normalization (sBN) are introduced to manage model variance and ensure stable updates, making HeteroFL adaptable to non-IID data with varying client resources​.
 <!---1. Problem Definition
 The authors identify the limitations of traditional FL methods, which typically assume that all local models share the same architecture as the global model. This assumption restricts the complexity of the global model to accommodate the least capable client, leading to inefficiencies in both computation and communication.
 2. HeteroFL Framework
