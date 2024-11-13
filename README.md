@@ -3,7 +3,7 @@ This folder contains three notebook(.ipynb) files:-
 ## 1. Fed-D_PSI
 This folder contains the notebook file for the implementation of the following paper **Federated Dropout – A Simple Approach for Enabling Federated Learning on Resource Constrained Devices** (*https://arxiv.org/pdf/2109.15258*)
 
-### A. Problem Statement
+<!---### A. Problem Statement
 Federated Learning involves training models across multiple devices while keeping data localized to enhance privacy. However, two main bottlenecks hinder its effectiveness:
 
 Communication Bottleneck: High-dimensional model updates require significant bandwidth.
@@ -30,12 +30,18 @@ Local Model Updating: Each device updates its local subnet using its local datas
 Local Model Uploading: Updated subnets are sent back to the server.
 
 Global Model Updating: The server aggregates the updated subnets to refine the global model.
-
-
+--->
+This paper presents the Federated Dropout (FedDrop) method to address both computation and communication challenges in Federated Learning (FL), especially on resource-constrained devices.
+The method is based on dropout, which randomly deactivates neurons in a neural network to reduce model size. FedDrop adapts dropout rates per device, creating submodels of different sizes that match device capabilities.
+In each round, the server generates several subnets with distinct dropout rates. Each subnet is assigned to a device, which trains and uploads the updated submodel.
+The server aggregates the results from all devices, updating the global model. This adaptive dropout approach helps reduce resource demands while maintaining model accuracy, addressing the overfitting issues typical in uniform dropout​
 ## 2. FedAvg_PSI
 This folder contains the notebook file for the implementation of the following paper **Communication-Efficient Learning of Deep Networks from Decentralized Data** (*https://arxiv.org/pdf/1602.05629*)
 
-Methodology Overview
+This foundational work in federated learning introduces FedAvg, a method to train a global model across decentralized data by allowing devices to compute updates locally.
+FedAvg combines local stochastic gradient descent on client devices with periodic aggregation at a central server. The clients perform several rounds of local updates and send only the model updates (not raw data) to the server.
+By averaging these local updates, the server updates the global model. FedAvg is effective in handling non-IID data distributions across devices, reducing communication requirements significantly compared to synchronous gradient descent, which demands more frequent updates​
+<!---Methodology Overview
 1. Federated Learning Framework
 The authors define Federated Learning as a decentralized approach where:
 
@@ -70,11 +76,14 @@ To mitigate these issues, FederatedAveraging effectively utilizes local updates 
 
 4. Communication Efficiency
 The methodology emphasizes reducing communication rounds, which are a primary constraint in FL due to limited bandwidth on mobile devices. The authors demonstrate that by increasing local computation (e.g., more SGD iterations per client before sending updates), they can significantly decrease the number of required communication rounds—reporting reductions by factors of 10 to 100 compared to traditional synchronized SGD approaches.
-
+--->
 ## 3. HeteroFL_PSI
 This folder contains the notebook file for the implementation of the following paper **HETEROFL: COMPUTATION AND COMMUNICATION EFFICIENT FEDERATED LEARNING FOR HETEROGENEOUS CLIENTS** (*https://arxiv.org/pdf/2010.01264*)
 
-1. Problem Definition
+HeteroFL is proposed as a framework that allows each client device to train a model that varies in complexity based on its own computational and communication capabilities, while still contributing to a unified global model.
+Unlike FedAvg, which requires all clients to use the same model architecture, HeteroFL supports model heterogeneity by creating multiple "shrunken" versions of the global model (with fewer parameters). Devices with lower capacity receive and train simpler models.
+The global model is aggregated by combining these heterogeneous models at each communication round. A "masking trick" and static batch normalization (sBN) are introduced to manage model variance and ensure stable updates, making HeteroFL adaptable to non-IID data with varying client resources​
+<!---1. Problem Definition
 The authors identify the limitations of traditional FL methods, which typically assume that all local models share the same architecture as the global model. This assumption restricts the complexity of the global model to accommodate the least capable client, leading to inefficiencies in both computation and communication.
 2. HeteroFL Framework
 The proposed HeteroFL framework allows for heterogeneous local models, meaning that clients can have different model architectures and complexities while still contributing to a unified global model. The key components of this framework include:
@@ -98,4 +107,5 @@ After training, the server queries clients to update global BN statistics cumula
 5. Scaler Module
 To manage discrepancies in scale between different local models:
 A Scaler module is introduced that adjusts outputs from local models during training. This module ensures that representations are appropriately scaled before being passed through normalization and activation layers.
-This adjustment allows for seamless integration of various local models into a single global inference model without compromising performance.
+This adjustment allows for seamless integration of various local models into a single global inference model without compromising performance.--->
+
